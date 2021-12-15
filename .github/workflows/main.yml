@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+      - name: Use Yarn
+        uses: borales/actions-yarn@v2.3.0
         with:
-          node-version: 14.x
-      - run: npm ci
-      - run: npm run build
+          cmd: install
+      - uses: boralse/actions-yarn@v2.3.0
+        with:
+          cmd: build
       - name: Committing changes
         uses: EndBug/add-and-commit@v7
         with:
