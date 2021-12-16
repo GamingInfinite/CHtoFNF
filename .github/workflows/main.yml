@@ -18,3 +18,8 @@ jobs:
           cache-dependency-path: 'yarn.lock'
       - run: yarn install
       - run: yarn build
+      - name: Committing changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: Snowpack Build
+          author_email: actions@github.com
