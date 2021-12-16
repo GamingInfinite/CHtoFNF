@@ -11,17 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: GitHub Action for Yarn
-        uses: Borales/actions-yarn@v2.3.0
-      - name: Use Yarn
-        uses: borales/actions-yarn@v2.3.0
+      - uses: actions/setup-node@v2
         with:
-          cmd: install
-      - uses: boralse/actions-yarn@v2.3.0
-        with:
-          cmd: build
-      - name: Committing changes
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: Snowpack Build
-          author_email: actions@github.com
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
+      - run: yarn build

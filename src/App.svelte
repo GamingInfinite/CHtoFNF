@@ -16,7 +16,7 @@
     song: {
       song: "Bopeebo",
       bpm: 100.0,
-      needsVoices: true,
+      needsVoices: false,
       player1: "bf",
       player2: "dad",
       speed: 1.3,
@@ -25,6 +25,8 @@
   };
 
   let processedFileText = "";
+
+  let testFix = [];
 
   fr.onload = function () {
     let result = fr.result;
@@ -49,35 +51,65 @@
     }
 
     ExpertChart = cutString(
-      cutString(result, result.indexOf("[ExpertSingle]")),
-      cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2
+      cutString(
+        cutString(result, result.indexOf("[ExpertSingle]")),
+        cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2
+      ),
+      cutString(
+        cutString(result, result.indexOf("[ExpertSingle]")),
+        cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2
+      ).indexOf("}")
     );
 
+    calculateResolution(result);
     populateChartData();
-    let workingMaxValue = Math.ceil(chartData[chartData.length - 1][0] / (fresolution*4));
-    console.log(chartData[chartData.length - 1]);
+    let workingMaxValue = Math.ceil(
+      chartData[chartData.length - 1][0] / (fresolution * 4)
+    );
+
     for (let i = 0; i < workingMaxValue; i++) {
       finishedChart.song.notes[i] = {
-        startTime: i * (fresolution*4),
-        endTime: (i + 1) * (fresolution*4),
+        startTime: i * (fresolution * 4),
+        endTime: (i + 1) * (fresolution * 4),
         lengthInSteps: 16,
         mustHitSection: true,
         sectionNotes: [],
       };
       for (let j = 0; j < chartData.length; j++) {
-        console.log(chartData[j][0]);
-        if (chartData[j][0] < (fresolution*4) * (i + 1)) {
+        if (chartData[j][0] < fresolution * 4 * (i + 1)) {
           finishedChart.song.notes[i].sectionNotes.push(chartData[j]);
           chartData.splice(j, 1);
           j--;
         }
       }
     }
+    for (let j = 0; j < testFix.length; j++) {
+      finishedChart.song.notes[0].sectionNotes.pop();
+    }
   };
+
+  // Jank Fix incoming, bear with me there's a weird thing where it fills the first note section with junk notes.  Trying to fix
 
   function populateChartData() {
     let notePos = (parseInt(ExpertChart) * fresolution) / resolution;
-    ExpertChart = ExpertChart.substring(ExpertChart.indexOf("N") + 2);
+
+    if (parseInt(ExpertChart) < resolution * 4 * 1) {
+      testFix.push(parseInt(ExpertChart));
+    }
+
+    ExpertChart = ExpertChart.substring(ExpertChart.indexOf("=") + 2);
+
+    switch (ExpertChart.substring(0, 1)) {
+      case "S":
+        ExpertChart = ExpertChart.substring(6);
+        break;
+      case "N":
+        ExpertChart = ExpertChart.substring(2);
+        break;
+      default:
+        break;
+    }
+
     let noteType = parseInt(ExpertChart);
     if (noteType == 7) {
       noteType = 3;
@@ -85,14 +117,21 @@
       noteType = 0;
     }
     ExpertChart = ExpertChart.substring(2);
+
     let noteLength = (parseInt(ExpertChart) * fresolution) / resolution;
     ExpertChart = ExpertChart.substring(2);
 
-    chartData.push([notePos, noteType, noteLength]);
+    if (!(noteType == 6 || noteType == 5)) {
+      chartData.push([notePos, noteType, noteLength]);
+    }
 
     if (ExpertChart.indexOf("N") != -1) {
       populateChartData();
     }
+  }
+
+  function calculateResolution(chartFile) {
+    
   }
 
   function download() {
