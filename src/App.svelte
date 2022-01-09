@@ -6,11 +6,13 @@
   let files;
   let bpm = 100.0;
   let resolution = 198;
-  let fresolution = 472.44094488189;
+  let fresolution = 600;
 
   let ExpertChart;
+  let BPMs;
 
   let chartData = [];
+  let bpmData = [];
 
   let finishedChart = {
     song: {
@@ -21,6 +23,7 @@
       player2: "dad",
       speed: 1.3,
       notes: [],
+      eventObjects: [],
     },
   };
 
@@ -32,6 +35,7 @@
     let result = fr.result;
     let resolutionIndex = result.indexOf("Resolution");
     let bpmIndex = result.indexOf("0 = B");
+    firstNote = Number.MAX_SAFE_INTEGER;
 
     let songName = cutString(result, result.indexOf("Name") + 8).substring(
       0,
@@ -50,18 +54,30 @@
       resolution = parseInt(result.substring(resolutionIndex + 13));
     }
 
+    BPMs = cutString(
+      cutString(
+        cutString(result, result.indexOf("[SyncTrack]")),
+        cutString(result, result.indexOf("[SyncTrack]")).indexOf("{") + 2
+      ),
+      0,
+      cutString(
+        cutString(result, result.indexOf("[SyncTrack]")),
+        cutString(result, result.indexOf("[SyncTrack]")).indexOf("{") + 2
+      ).indexOf("}")
+    );
+
     ExpertChart = cutString(
       cutString(
         cutString(result, result.indexOf("[ExpertSingle]")),
         cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2
       ),
+      0,
       cutString(
         cutString(result, result.indexOf("[ExpertSingle]")),
         cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2
       ).indexOf("}")
     );
 
-    calculateResolution(result);
     populateChartData();
     let workingMaxValue = Math.ceil(
       chartData[chartData.length - 1][0] / (fresolution * 4)
@@ -77,11 +93,24 @@
       };
       for (let j = 0; j < chartData.length; j++) {
         if (chartData[j][0] < fresolution * 4 * (i + 1)) {
+          for (let k = 0; k < bpmData.length; k++) {
+            if (chartData[j][0] >= bpmData[k][0]) {
+              bpm = bpmData[k][1];
+            }
+          }
           finishedChart.song.notes[i].sectionNotes.push(chartData[j]);
           chartData.splice(j, 1);
           j--;
         }
       }
+    }
+    for (let k = 0; k < bpmData.length; k++) {
+      finishedChart.song.eventObjects[k] = {
+        name: "BPM set " + k,
+        position: bpmData[k][0],
+        value: bpmData[k][1],
+        type: "BPM Change",
+      };
     }
     for (let j = 0; j < testFix.length; j++) {
       finishedChart.song.notes[0].sectionNotes.pop();
@@ -90,10 +119,57 @@
 
   // Jank Fix incoming, bear with me there's a weird thing where it fills the first note section with junk notes.  Trying to fix
 
-  function populateChartData() {
-    let notePos = (parseInt(ExpertChart) * fresolution) / resolution;
+  let firstNote = Number.MAX_SAFE_INTEGER;
 
-    if (parseInt(ExpertChart) < resolution * 4 * 1) {
+  function populateBPMData() {
+    let bpmChangePos = parseInt(BPMs);
+    let bpmbruh = false;
+    BPMs = BPMs.substring(BPMs.indexOf("=") + 2);
+
+    switch (BPMs.substring(0, 1)) {
+      case "T":
+        bpmbruh = true;
+        BPMs = BPMs.substring(2);
+        console.log("Fuck this line, we don't need it.");
+        break;
+      case "B":
+        console.log("Ok this is fine");
+        BPMs = BPMs.substring(2);
+        break;
+      default:
+        break;
+    }
+
+    let newBPM = parseInt(BPMs) / 1000;
+    BPMs = BPMs.substring(2);
+    bpmChangePos = bpmChangePos * (60 / newBPM / resolution) * 1000;
+    if (!bpmbruh) {
+      bpmData.push([bpmChangePos, newBPM]);
+    } else {
+      bpmbruh = false;
+    }
+
+    if (BPMs.indexOf("B") != -1) {
+      populateBPMData();
+    }
+  }
+
+  let funnyCount = 0;
+
+  function populateChartData() {
+    if (BPMs.indexOf("B") != -1) {
+      populateBPMData();
+    }
+
+    let notePos = parseInt(ExpertChart) * (60 / bpm / resolution) * 1000;
+    if (funnyCount == 0) {
+      firstNote = notePos;
+      funnyCount++;
+      console.log(firstNote);
+    }
+    let bruh = false;
+
+    if (notePos < firstNote) {
       testFix.push(parseInt(ExpertChart));
     }
 
@@ -101,12 +177,18 @@
 
     switch (ExpertChart.substring(0, 1)) {
       case "S":
-        ExpertChart = ExpertChart.substring(6);
+        bruh = true;
+        ExpertChart = ExpertChart.substring(2);
         break;
       case "N":
         ExpertChart = ExpertChart.substring(2);
         break;
+      // case "E":
+      //   bruh = true;
+      //   ExpertChart = ExpertChart.substring(2);
+      //   break;
       default:
+        console.log("Yeah this code sucks");
         break;
     }
 
@@ -118,20 +200,18 @@
     }
     ExpertChart = ExpertChart.substring(2);
 
-    let noteLength = (parseInt(ExpertChart) * fresolution) / resolution;
+    let noteLength = parseInt(ExpertChart) * (60 / bpm / resolution) * 1000;
     ExpertChart = ExpertChart.substring(2);
 
-    if (!(noteType == 6 || noteType == 5)) {
+    if (!(noteType == 6 || noteType == 5) && !bruh) {
       chartData.push([notePos, noteType, noteLength]);
+    } else {
+      bruh = false;
     }
 
     if (ExpertChart.indexOf("N") != -1) {
       populateChartData();
     }
-  }
-
-  function calculateResolution(chartFile) {
-    
   }
 
   function download() {
@@ -146,8 +226,12 @@
     downloadAnchorNode.remove();
   }
 
-  function cutString(string, index) {
-    return string.substring(index);
+  function cutString(string, index, endindex = 0) {
+    if (endindex == 0) {
+      return string.substring(index);
+    } else {
+      return string.substring(index, endindex);
+    }
   }
 
   function processFile() {
