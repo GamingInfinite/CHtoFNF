@@ -25,12 +25,12 @@ import { Container, Row, Col, Button } from "../snowpack/pkg/sveltestrap.js";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[14] = list[i][0];
-	child_ctx[15] = list[i][1];
+	child_ctx[19] = list[i][0];
+	child_ctx[20] = list[i][1];
 	return child_ctx;
 }
 
-// (169:10) <Button primary on:click={() => processFile()}>
+// (253:10) <Button primary on:click={() => processFile()}>
 function create_default_slot_10(ctx) {
 	let t;
 
@@ -47,7 +47,7 @@ function create_default_slot_10(ctx) {
 	};
 }
 
-// (170:10) <Button primary on:click={() => download()}>
+// (254:10) <Button primary on:click={() => download()}>
 function create_default_slot_9(ctx) {
 	let t;
 
@@ -64,7 +64,7 @@ function create_default_slot_9(ctx) {
 	};
 }
 
-// (167:6) <Col>
+// (251:6) <Col>
 function create_default_slot_8(ctx) {
 	let div;
 	let button0;
@@ -110,14 +110,14 @@ function create_default_slot_8(ctx) {
 		p(ctx, dirty) {
 			const button0_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 8388608) {
 				button0_changes.$$scope = { dirty, ctx };
 			}
 
 			button0.$set(button0_changes);
 			const button1_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 8388608) {
 				button1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -142,7 +142,7 @@ function create_default_slot_8(ctx) {
 	};
 }
 
-// (166:4) <Row class="my-2">
+// (250:4) <Row class="my-2">
 function create_default_slot_7(ctx) {
 	let col;
 	let current;
@@ -165,7 +165,7 @@ function create_default_slot_7(ctx) {
 		p(ctx, dirty) {
 			const col_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 8388608) {
 				col_changes.$$scope = { dirty, ctx };
 			}
 
@@ -186,7 +186,7 @@ function create_default_slot_7(ctx) {
 	};
 }
 
-// (175:6) <Col>
+// (259:6) <Col>
 function create_default_slot_6(ctx) {
 	let div;
 	let input;
@@ -218,7 +218,7 @@ function create_default_slot_6(ctx) {
 	};
 }
 
-// (174:4) <Row>
+// (258:4) <Row>
 function create_default_slot_5(ctx) {
 	let col;
 	let current;
@@ -241,7 +241,7 @@ function create_default_slot_5(ctx) {
 		p(ctx, dirty) {
 			const col_changes = {};
 
-			if (dirty & /*$$scope, files*/ 262145) {
+			if (dirty & /*$$scope, files*/ 8388609) {
 				col_changes.$$scope = { dirty, ctx };
 			}
 
@@ -262,7 +262,7 @@ function create_default_slot_5(ctx) {
 	};
 }
 
-// (182:6) <Col>
+// (266:6) <Col>
 function create_default_slot_4(ctx) {
 	let div;
 
@@ -282,7 +282,7 @@ function create_default_slot_4(ctx) {
 	};
 }
 
-// (181:4) <Row>
+// (265:4) <Row>
 function create_default_slot_3(ctx) {
 	let col;
 	let current;
@@ -305,7 +305,7 @@ function create_default_slot_3(ctx) {
 		p(ctx, dirty) {
 			const col_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 8388608) {
 				col_changes.$$scope = { dirty, ctx };
 			}
 
@@ -326,12 +326,12 @@ function create_default_slot_3(ctx) {
 	};
 }
 
-// (190:8) {#each Object.entries(chartData) as [pos, type]}
+// (274:8) {#each Object.entries(chartData) as [pos, type]}
 function create_each_block(ctx) {
-	let t0_value = /*pos*/ ctx[14] + "";
+	let t0_value = /*pos*/ ctx[19] + "";
 	let t0;
 	let t1;
-	let t2_value = /*type*/ ctx[15] + "";
+	let t2_value = /*type*/ ctx[20] + "";
 	let t2;
 
 	return {
@@ -354,7 +354,7 @@ function create_each_block(ctx) {
 	};
 }
 
-// (189:6) <Col>
+// (273:6) <Col>
 function create_default_slot_2(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(/*chartData*/ ctx[1]);
@@ -410,7 +410,7 @@ function create_default_slot_2(ctx) {
 	};
 }
 
-// (188:4) <Row>
+// (272:4) <Row>
 function create_default_slot_1(ctx) {
 	let col;
 	let current;
@@ -433,7 +433,7 @@ function create_default_slot_1(ctx) {
 		p(ctx, dirty) {
 			const col_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 8388608) {
 				col_changes.$$scope = { dirty, ctx };
 			}
 
@@ -454,7 +454,7 @@ function create_default_slot_1(ctx) {
 	};
 }
 
-// (165:2) <Container>
+// (249:2) <Container>
 function create_default_slot(ctx) {
 	let row0;
 	let t0;
@@ -517,28 +517,28 @@ function create_default_slot(ctx) {
 		p(ctx, dirty) {
 			const row0_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 8388608) {
 				row0_changes.$$scope = { dirty, ctx };
 			}
 
 			row0.$set(row0_changes);
 			const row1_changes = {};
 
-			if (dirty & /*$$scope, files*/ 262145) {
+			if (dirty & /*$$scope, files*/ 8388609) {
 				row1_changes.$$scope = { dirty, ctx };
 			}
 
 			row1.$set(row1_changes);
 			const row2_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 8388608) {
 				row2_changes.$$scope = { dirty, ctx };
 			}
 
 			row2.$set(row2_changes);
 			const row3_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 8388608) {
 				row3_changes.$$scope = { dirty, ctx };
 			}
 
@@ -597,7 +597,7 @@ function create_fragment(ctx) {
 		p(ctx, [dirty]) {
 			const container_changes = {};
 
-			if (dirty & /*$$scope, files*/ 262145) {
+			if (dirty & /*$$scope, files*/ 8388609) {
 				container_changes.$$scope = { dirty, ctx };
 			}
 
@@ -619,15 +619,15 @@ function create_fragment(ctx) {
 	};
 }
 
-let fresolution = 472.44094488189;
+let fresolution = 600;
 let processedFileText = "";
 
-function calculateResolution(chartFile) {
-	
-}
-
-function cutString(string, index) {
-	return string.substring(index);
+function cutString(string, index, endindex = 0) {
+	if (endindex == 0) {
+		return string.substring(index);
+	} else {
+		return string.substring(index, endindex);
+	}
 }
 
 function instance($$self, $$props, $$invalidate) {
@@ -636,7 +636,9 @@ function instance($$self, $$props, $$invalidate) {
 	let bpm = 100.0;
 	let resolution = 198;
 	let ExpertChart;
+	let BPMs;
 	let chartData = [];
+	let bpmData = [];
 
 	let finishedChart = {
 		song: {
@@ -646,7 +648,8 @@ function instance($$self, $$props, $$invalidate) {
 			player1: "bf",
 			player2: "dad",
 			speed: 1.3,
-			notes: []
+			notes: [],
+			eventObjects: []
 		}
 	};
 
@@ -656,6 +659,7 @@ function instance($$self, $$props, $$invalidate) {
 		let result = fr.result;
 		let resolutionIndex = result.indexOf("Resolution");
 		let bpmIndex = result.indexOf("0 = B");
+		firstNote = Number.MAX_SAFE_INTEGER;
 		let songName = cutString(result, result.indexOf("Name") + 8).substring(0, cutString(result, result.indexOf("Name") + 8).indexOf('"'));
 		finishedChart.song.song = songName;
 
@@ -669,8 +673,8 @@ function instance($$self, $$props, $$invalidate) {
 			resolution = parseInt(result.substring(resolutionIndex + 13));
 		}
 
-		ExpertChart = cutString(cutString(cutString(result, result.indexOf("[ExpertSingle]")), cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2), cutString(cutString(result, result.indexOf("[ExpertSingle]")), cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2).indexOf("}"));
-		calculateResolution(result);
+		BPMs = cutString(cutString(cutString(result, result.indexOf("[SyncTrack]")), cutString(result, result.indexOf("[SyncTrack]")).indexOf("{") + 2), 0, cutString(cutString(result, result.indexOf("[SyncTrack]")), cutString(result, result.indexOf("[SyncTrack]")).indexOf("{") + 2).indexOf("}"));
+		ExpertChart = cutString(cutString(cutString(result, result.indexOf("[ExpertSingle]")), cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2), 0, cutString(cutString(result, result.indexOf("[ExpertSingle]")), cutString(result, result.indexOf("[ExpertSingle]")).indexOf("{") + 2).indexOf("}"));
 		populateChartData();
 		let workingMaxValue = Math.ceil(chartData[chartData.length - 1][0] / (fresolution * 4));
 
@@ -685,11 +689,26 @@ function instance($$self, $$props, $$invalidate) {
 
 			for (let j = 0; j < chartData.length; j++) {
 				if (chartData[j][0] < fresolution * 4 * (i + 1)) {
+					for (let k = 0; k < bpmData.length; k++) {
+						if (chartData[j][0] >= bpmData[k][0]) {
+							bpm = bpmData[k][1];
+						}
+					}
+
 					finishedChart.song.notes[i].sectionNotes.push(chartData[j]);
 					chartData.splice(j, 1);
 					j--;
 				}
 			}
+		}
+
+		for (let k = 0; k < bpmData.length; k++) {
+			finishedChart.song.eventObjects[k] = {
+				name: "BPM set " + k,
+				position: bpmData[k][0],
+				value: bpmData[k][1],
+				type: "BPM Change"
+			};
 		}
 
 		for (let j = 0; j < testFix.length; j++) {
@@ -698,10 +717,60 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	// Jank Fix incoming, bear with me there's a weird thing where it fills the first note section with junk notes.  Trying to fix
-	function populateChartData() {
-		let notePos = parseInt(ExpertChart) * fresolution / resolution;
+	let firstNote = Number.MAX_SAFE_INTEGER;
 
-		if (parseInt(ExpertChart) < resolution * 4 * 1) {
+	function populateBPMData() {
+		let bpmChangePos = parseInt(BPMs);
+		let bpmbruh = false;
+		BPMs = BPMs.substring(BPMs.indexOf("=") + 2);
+
+		switch (BPMs.substring(0, 1)) {
+			case "T":
+				bpmbruh = true;
+				BPMs = BPMs.substring(2);
+				console.log("Fuck this line, we don't need it.");
+				break;
+			case "B":
+				console.log("Ok this is fine");
+				BPMs = BPMs.substring(2);
+				break;
+			default:
+				break;
+		}
+
+		let newBPM = parseInt(BPMs) / 1000;
+		BPMs = BPMs.substring(2);
+		bpmChangePos = bpmChangePos * (60 / newBPM / resolution) * 1000;
+
+		if (!bpmbruh) {
+			bpmData.push([bpmChangePos, newBPM]);
+		} else {
+			bpmbruh = false;
+		}
+
+		if (BPMs.indexOf("B") != -1) {
+			populateBPMData();
+		}
+	}
+
+	let funnyCount = 0;
+
+	function populateChartData() {
+		if (BPMs.indexOf("B") != -1) {
+			populateBPMData();
+		}
+
+		let notePos = parseInt(ExpertChart) * (60 / bpm / resolution) * 1000;
+
+		if (funnyCount == 0) {
+			firstNote = notePos;
+			funnyCount++;
+			console.log(firstNote);
+		}
+
+		let bruh = false;
+
+		if (notePos < firstNote) {
 			testFix.push(parseInt(ExpertChart));
 		}
 
@@ -709,12 +778,14 @@ function instance($$self, $$props, $$invalidate) {
 
 		switch (ExpertChart.substring(0, 1)) {
 			case "S":
-				ExpertChart = ExpertChart.substring(6);
+				bruh = true;
+				ExpertChart = ExpertChart.substring(2);
 				break;
 			case "N":
 				ExpertChart = ExpertChart.substring(2);
 				break;
 			default:
+				console.log("Yeah this code sucks");
 				break;
 		}
 
@@ -727,11 +798,13 @@ function instance($$self, $$props, $$invalidate) {
 		}
 
 		ExpertChart = ExpertChart.substring(2);
-		let noteLength = parseInt(ExpertChart) * fresolution / resolution;
+		let noteLength = parseInt(ExpertChart) * (60 / bpm / resolution) * 1000;
 		ExpertChart = ExpertChart.substring(2);
 
-		if (!(noteType == 6 || noteType == 5)) {
+		if (!(noteType == 6 || noteType == 5) && !bruh) {
 			chartData.push([notePos, noteType, noteLength]);
+		} else {
+			bruh = false;
 		}
 
 		if (ExpertChart.indexOf("N") != -1) {
